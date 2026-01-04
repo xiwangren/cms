@@ -3,12 +3,8 @@ import { ImageBlock } from "./ImageBlock";
 import { QuoteBlock } from "./QuoteBlock";
 import { RichTextBlock } from "./RichTextBlock";
 import { MediaBlock } from "./MediaBlock";
-import dynamic from "next/dynamic";
+import { SliderBlock } from "./SliderBlock";
 import { StrapiBlock } from "@/lib/strapi";
-
-// 使用 dynamic import 来支持客户端组件（如 SliderBlock）
-// SliderBlock 已经标记为 "use client"，Next.js 会自动在客户端渲染
-const SliderBlock = dynamic(() => import("./SliderBlock").then(mod => ({ default: mod.SliderBlock })));
 
 // 组件映射，类似 Prismic 的 components
 export const blockComponents = {
