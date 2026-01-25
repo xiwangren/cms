@@ -17,7 +17,7 @@ function SignUpForm({ settings }: { settings: any }) {
   
         {settings.data.newsletterDescription?.length > 0 && (
           <div className="text-center font-serif tracking-tight text-slate-500">
-            {settings.data.newsletterDescription.map((block, index) => {
+            {settings.data.newsletterDescription.map((block: any, index: number) => {
               // 根据富文本块的类型渲染不同元素
               switch (block.type) {
                 case "heading1":
@@ -68,27 +68,13 @@ function SignUpForm({ settings }: { settings: any }) {
               <span aria-hidden={true}>&rarr;</span>
             </button>
           </div>
-
-          {/* 修改后的 newsletterDisclaimer 部分 */}
-          {settings.data.newsletterDisclaimer?.length > 0 && (
-            <div className="text-center font-serif tracking-tight text-slate-500">
-              <PrismicRichText
-                field={settings.data.newsletterDisclaimer}
-                components={{
-                  paragraph: ({ children }) => (
-                    <p className="mb-4 italic last:mb-0">{children}</p>
-                  ),
-                }}
-              />
-            </div>
-          )}
         </div>
       </form>
     </div>
   );
 }
 
-export function Footer({ withSignUpForm = true, settings }) {
+export function Footer({ withSignUpForm = true, settings }: { withSignUpForm?: boolean; settings: any }) {
   return (
     <Bounded as="footer">
       <div className="grid grid-cols-1 justify-items-center gap-24">

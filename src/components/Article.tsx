@@ -30,6 +30,7 @@ export function Article({ article }: { article: StrapiArticle }) {
           {imageInfo && !imageError ? (
             useFallback ? (
               // 使用普通 img 标签作为后备
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={imageInfo.url}
                 alt={imageInfo.alt}

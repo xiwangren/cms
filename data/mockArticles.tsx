@@ -4,6 +4,7 @@ export const mockArticles = [
     uid: "article1",
     type: "article",
     author: "figure.chen",
+    category: "technology",
     data: {
       title: { text: "First Article Title" },
       content: { text: "This is the content of the first article." },
@@ -29,6 +30,7 @@ export const mockArticles = [
     uid: "article2",
     type: "article",
     author: "figure.chen",
+    category: "technology",
     data: {
       title: { text: "First Article Title" },
       content: { text: "This is the content of the first article." },

@@ -1,23 +1,56 @@
-import * as prismic from "@prismicio/client";
-import { SliceZone } from "@prismicio/react";
 import { notFound } from "next/navigation";
-
-import { createClient } from "@/prismicio";
-import { components } from "@/slices";
 import { Layout } from "@/components/Layout";
+import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { mockSettings } from "@/data/mockSettings";
+
+// 模拟页面数据
+const mockPages = {
+  about: {
+    uid: "about",
+    data: {
+      title: "About Us",
+      meta_title: "About Us | Blog",
+      meta_description: "Learn more about our blog.",
+      meta_image: { url: "https://example.com/about.jpg" },
+      slices: [
+        {
+          __component: "shared.rich-text",
+          id: "about-1",
+          body: "## About Us\n\nWe are a team of passionate developers."
+        }
+      ]
+    }
+  },
+  contact: {
+    uid: "contact",
+    data: {
+      title: "Contact Us",
+      meta_title: "Contact Us | Blog",
+      meta_description: "Get in touch with us.",
+      meta_image: { url: "https://example.com/contact.jpg" },
+      slices: [
+        {
+          __component: "shared.rich-text",
+          id: "contact-1",
+          body: "## Contact Us\n\nFeel free to reach out to us at contact@example.com."
+        }
+      ]
+    }
+  }
+};
 
 export async function generateMetadata({ params }) {
   const { uid } = await params;
-  const client = createClient();
-  const settings = await client.getSingle("settings");
-  const page = await client
-    .getByUID("page", uid)
-    .catch(() => notFound());
+  const page = mockPages[uid];
+
+  if (!page) {
+    return {
+      title: "Page Not Found",
+    };
+  }
 
   return {
-    title: `${prismic.asText(page.data.title)} | ${prismic.asText(
-      settings.data.name,
-    )}`,
+    title: `${page.data.title} | ${mockSettings.data.name}`,
     description: page.data.meta_description,
     openGraph: {
       title: page.data.meta_title,
@@ -32,27 +65,23 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { uid } = await params;
-  const client = createClient();
+  const page = mockPages[uid];
 
-  const page = await client
-    .getByUID("page", uid)
-    .catch(() => notFound());
-  const navigation = await client.getSingle("navigation");
-  const settings = await client.getSingle("settings");
+  if (!page) {
+    notFound();
+  }
+
+  const settings = mockSettings;
 
   return (
-    <Layout navigation={navigation} settings={settings}>
-      <SliceZone slices={page.data.slices} components={components} />
+    <Layout settings={settings}>
+      <div className="container mx-auto px-4 py-8">
+        <BlockRenderer blocks={page.data.slices} />
+      </div>
     </Layout>
   );
 }
 
 export async function generateStaticParams() {
-  const client = createClient();
-
-  const pages = await client.getAllByType("page");
-
-  return pages.map((page) => {
-    return { uid: page.uid };
-  });
+  return Object.keys(mockPages).map((uid) => ({ uid }));
 }

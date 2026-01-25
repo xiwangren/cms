@@ -1,6 +1,6 @@
 import { mockArticles } from "@/data/mockArticles"
 import { NextResponse } from "next/server"
-export async function GET(request) {
+export async function GET(request: Request) {
    return NextResponse.json({
     success: true,
     data: mockArticles
@@ -27,7 +27,7 @@ export async function GET(request) {
 //   }
 // }
 
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     // 解析请求体中的参数
     const body = await request.json();
@@ -60,7 +60,7 @@ export async function POST(request) {
     
     // 根据分类筛选（如果指定了分类）
     if (category && category !== 'all') {
-      resultData = resultData.filter(article => article.category === category);
+      resultData = resultData.filter((article: any) => article.category === category);
     }
     
     return NextResponse.json({

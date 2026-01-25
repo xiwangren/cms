@@ -1,8 +1,6 @@
-import * as prismic from "@prismicio/client";
 import Image from "next/image";
-
 import Bounded from "@/components/Bounded";
-import { PrismicRichText } from "@/components/PrismicRichText";
+import { RichText } from "@/components/RichText";
 
 const ImageSlice = ({ slice }) => {
   const image = slice.primary.image;
@@ -10,21 +8,21 @@ const ImageSlice = ({ slice }) => {
   return (
     <Bounded as="section" size={slice.variation === "wide" ? "widest" : "base"}>
       <figure className="grid grid-cols-1 gap-4">
-        {prismic.isFilled.image(image) && (
+        {image?.url && (
           <div className="bg-gray-100">
             <Image
               src={image.url}
               alt={image.alt || ""}
-              width={image.dimensions.width}
-              height={image.dimensions.height}
+              width={image.dimensions?.width || 800}
+              height={image.dimensions?.height || 600}
               sizes="100vw"
               className="w-full"
             />
           </div>
         )}
-        {prismic.isFilled.richText(slice.primary.caption) && (
+        {slice.primary.caption && (
           <figcaption className="text-center font-serif italic tracking-tight text-slate-500">
-            <PrismicRichText field={slice.primary.caption} />
+            <RichText content={slice.primary.caption} />
           </figcaption>
         )}
       </figure>

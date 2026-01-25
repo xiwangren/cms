@@ -36,6 +36,10 @@ export const Header = ({
   withDivider = true,
   withProfile = true,
   settings,
+}: {
+  withDivider?: boolean;
+  withProfile?: boolean;
+  settings: any;
 }) => {
   return (
     <Bounded as="header" className="">

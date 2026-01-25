@@ -20,7 +20,7 @@ export function ImageBlock({ image, caption, size = "base" }: ImageBlockProps) {
     base: "base",
     wide: "wide",
     widest: "widest",
-  };
+  } as const;
 
   return (
     <Bounded as="section" size={sizeMap[size]}>

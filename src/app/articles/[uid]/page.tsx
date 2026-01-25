@@ -64,7 +64,7 @@ function LatestArticle({ article }: { article: StrapiArticle }) {
   );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ uid: string }> | { uid: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ uid: string }> }) {
   const { uid } = await params;
   const article = await getArticleBySlug(uid);
 
@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ uid: stri
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ uid: string }> | { uid: string } }) {
+export default async function Page({ params }: { params: Promise<{ uid: string }> }) {
   const settings = mockSettings
   const { uid } = await params;
 

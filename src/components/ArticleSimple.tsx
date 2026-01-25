@@ -1,6 +1,7 @@
 import { dateFormatter } from "@/lib/dateFormatter";
 import { Heading } from "@/components/Heading";
 import Link from "next/link";
+import Image from "next/image";
 import { StrapiArticle, getArticleImage } from "@/lib/strapi";
 
 /**
@@ -21,11 +22,13 @@ export function ArticleSimple({ article }: { article: StrapiArticle }) {
       <Link href={`/articles/${slug}`} tabIndex={-1}>
         <div className="aspect-h-3 aspect-w-4 relative bg-gray-100 overflow-hidden">
           {imageInfo ? (
-            <img
+            <Image
               src={imageInfo.url}
               alt={imageInfo.alt}
-              className="w-full h-full object-cover"
-              style={{ minHeight: '200px' }}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              unoptimized
             />
           ) : (
             <div className="flex items-center justify-center h-full text-slate-400 min-h-[200px]">
