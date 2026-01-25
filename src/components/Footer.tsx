@@ -6,7 +6,7 @@ import { HorizontalDivider } from "./HorizontalDivider";
 
 
 function SignUpForm({ settings }: { settings: any }) {
-  console.log('newsletterDescription:', settings.data.newsletterDescription); 
+  // console.log('newsletterDescription:', settings.data.newsletterDescription); 
   return (
     <div className="px-4">
       <form
