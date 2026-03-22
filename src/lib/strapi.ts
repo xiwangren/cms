@@ -9,8 +9,8 @@
 
 // 确保 URL 格式正确，移除末尾斜杠
 const getStrapiUrl = () => {
-  // 优先使用环境变量，如果没有则使用远程服务器地址
-  const url = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://107.23.182.26:1337/api';
+  // 优先使用环境变量，如果没有则使用 Strapi Cloud 地址
+  const url = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'https://stable-diamond-8f35298ae9.strapiapp.com/api';
   const cleanUrl = url.endsWith('/') ? url.slice(0, -1) : url;
   
   // 在开发环境下打印 URL 以便调试
@@ -28,7 +28,7 @@ const STRAPI_BASE_URL = STRAPI_API_URL.replace('/api', '');
 
 // 从环境变量或默认值中提取远程服务器地址
 const getRemoteServerUrl = () => {
-  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://107.23.182.26:1337/api';
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'https://stable-diamond-8f35298ae9.strapiapp.com/api';
   // 提取协议、主机和端口
   try {
     const url = new URL(apiUrl);

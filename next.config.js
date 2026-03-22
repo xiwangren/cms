@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['stable-diamond-8f35298ae9.media.strapiapp.com'],
     remotePatterns: [
       {
         protocol: 'http',

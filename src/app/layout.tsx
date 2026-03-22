@@ -4,8 +4,8 @@ import { Inter, Libre_Baskerville } from "next/font/google";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Default Title',
-  description: 'Default Description',
+  title: 'A Blog About cilium',
+  description: 'A blog about cilium, a service mesh for Kubernetes.',
 };
 
 
