@@ -1,3 +1,8 @@
+// 允许未在 generateStaticParams 中预生成的路径在运行时动态渲染
+// 避免构建时 Strapi 请求失败导致文章页面 404
+export const dynamicParams = true;
+export const revalidate = 60;
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticleBySlug, getArticles, StrapiArticle, getArticleImage } from "@/lib/strapi";
@@ -177,8 +182,15 @@ export default async function Page({ params }: { params: Promise<{ uid: string }
 }
 
 export async function generateStaticParams() {
-  const articles = await getArticles({ pageSize: 100 });
-  return articles.map((article) => ({
-    uid: article.attributes?.slug || article.slug,
-  }));
+  try {
+    const articles = await getArticles({ pageSize: 100 });
+    return articles.map((article) => ({
+      uid: article.attributes?.slug || article.slug,
+    }));
+  } catch (error) {
+    // 构建时 Strapi 不可用，返回空数组
+    // dynamicParams=true 会确保运行时仍能按需渲染
+    console.warn('[generateStaticParams] Failed to fetch articles, pages will be rendered on-demand:', error);
+    return [];
+  }
 }

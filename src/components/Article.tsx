@@ -17,7 +17,8 @@ export function Article({ article }: { article: StrapiArticle }) {
   const excerpt = article.attributes?.excerpt || article.excerpt || article.attributes?.description || article.description || "";
   
   const date = new Date(publishedAt);
-  
+  console.log("文章测试")
+  console.log(slug)
   // 使用统一的图片获取函数
   const imageInfo = getArticleImage(article);
   const [imageError, setImageError] = useState(false);

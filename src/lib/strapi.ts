@@ -406,12 +406,9 @@ export async function getArticles(params?: {
     return normalizedArticles;
   } catch (error: any) {
     console.error('[Strapi] Error fetching articles:', error);
-    // 在开发环境下，仍然抛出错误以便调试
-    if (process.env.NODE_ENV === 'development') {
-      throw error;
-    }
-    // 生产环境返回空数组
-    return [];
+    // 生产环境也抛出错误，让构建时能感知到问题
+    // generateStaticParams 会 catch 并返回空数组，但 dynamicParams=true 会兜底
+    throw error;
   }
 }
 
